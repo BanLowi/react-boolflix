@@ -54,8 +54,6 @@ function App() {
       .then(res => setSeries(res.data.results))
   }
 
-
-
   function getFlag(lang) {
 
     const findFlag = flags.find(flag => flag.code === lang.toUpperCase());
@@ -81,12 +79,15 @@ function App() {
                 <li key={movie.id}>
                   <div className="card">
                     <h2>{movie.title}</h2>
-                    <img src={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`} alt="" />
+                    {
+                      movie.poster_path &&
+                      <img src={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`} alt="" />
+                    }
                   </div>
                   <div className="card-body">
                     <p>{movie.original_title}</p>
                     <p>{getFlag(movie.original_language)}</p>
-                    <p>{movie.vote_average}</p>
+                    <p>{(movie.vote_average / 2).toFixed()}</p>
                   </div>
                 </li>
               ))
@@ -99,21 +100,24 @@ function App() {
 
           <ul>
             {
-              series.map(serie => (
-                <li key={serie.id}>
+              series.map(serie => {
+
+
+                return <li key={serie.id}>
                   <div className="card">
                     <h2>{serie.name}</h2>
-                    {product.poster_path && (
+                    {
+                      serie.poster_path &&
                       <img src={`https://image.tmdb.org/t/p/w342/${serie.poster_path}`} alt="" />
-                    )}
+                    }
                   </div>
                   <div className="card-body">
                     <p>{serie.original_name}</p>
                     <p>{getFlag(serie.original_language)}</p>
-                    <p>{serie.vote_average}</p>
+                    <p>{(serie.vote_average / 2).toFixed()}</p>
                   </div>
                 </li>
-              ))
+              })
             }
           </ul>
         </div>
