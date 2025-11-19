@@ -54,6 +54,8 @@ function App() {
       .then(res => setSeries(res.data.results))
   }
 
+
+
   function getFlag(lang) {
 
     const findFlag = flags.find(flag => flag.code === lang.toUpperCase());
@@ -79,6 +81,7 @@ function App() {
                 <li key={movie.id}>
                   <div className="card">
                     <h2>{movie.title}</h2>
+                    <img src={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`} alt="" />
                   </div>
                   <div className="card-body">
                     <p>{movie.original_title}</p>
@@ -96,15 +99,16 @@ function App() {
 
           <ul>
             {
-              series.map(movie => (
-                <li key={movie.id}>
+              series.map(serie => (
+                <li key={serie.id}>
                   <div className="card">
-                    <h2>{movie.name}</h2>
+                    <h2>{serie.name}</h2>
+                    <img src={`https://image.tmdb.org/t/p/w342/${serie.poster_path}`} alt="" />
                   </div>
                   <div className="card-body">
-                    <p>{movie.original_name}</p>
-                    <p>{getFlag(movie.original_language)}</p>
-                    <p>{movie.vote_average}</p>
+                    <p>{serie.original_name}</p>
+                    <p>{getFlag(serie.original_language)}</p>
+                    <p>{serie.vote_average}</p>
                   </div>
                 </li>
               ))
