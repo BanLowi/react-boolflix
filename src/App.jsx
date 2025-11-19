@@ -28,6 +28,14 @@ function App() {
         </form>
       </header>
       <main>
+        <ul>
+          {
+            movies.map(movie => (
+              <li key={movie.id}>{movie.title}</li>
+            ))
+          }
+        </ul>
+
       </main>
     </>
   )
