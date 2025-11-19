@@ -61,6 +61,17 @@ function App() {
     return findFlag ? findFlag.flag : lang.toUpperCase()
   }
 
+  function renderStars(vote) {
+
+    let star = "";
+    // for every vote add a star
+    for (let i = 0; i < (vote / 2).toFixed(); i++) {
+      star += "⭐"
+    }
+
+    return star
+  }
+
   return (
     <>
       <header>
@@ -87,7 +98,7 @@ function App() {
                   <div className="card-body">
                     <p>{movie.original_title}</p>
                     <p>{getFlag(movie.original_language)}</p>
-                    <p>{(movie.vote_average / 2).toFixed()}</p>
+                    <p>{renderStars(movie.vote_average)}</p>
                   </div>
                 </li>
               ))
@@ -101,6 +112,8 @@ function App() {
           <ul>
             {
               series.map(serie => {
+
+
 
 
                 return <li key={serie.id}>
@@ -128,3 +141,6 @@ function App() {
 }
 
 export default App
+
+
+
