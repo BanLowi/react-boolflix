@@ -41,14 +41,17 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
   /* console.log(searchInput); */
   const [movies, setMovies] = useState([]);
-  console.log(movies);
+  const [series, setSeries] = useState([]);
 
 
-  function fetchMovies(e) {
+  function fetchData(e) {
     e.preventDefault()
 
-    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apikey}&query=${searchInput}&language=${searchInput}`)
+    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apikey}&query=${searchInput}`)
       .then(res => setMovies(res.data.results))
+
+    axios.get(`https://api.themoviedb.org/3/search/tv?api_key=${apikey}&query=${searchInput}`)
+      .then(res => setSeries(res.data.results))
   }
 
   function getFlag(lang) {
@@ -61,28 +64,53 @@ function App() {
   return (
     <>
       <header>
-        <form onSubmit={fetchMovies}>
+        <form onSubmit={fetchData}>
           <input type="text" name="searchbar" id="searchBar" value={searchInput} onChange={e => setSearchInput(e.target.value)} />
           <button type="submit">Invia</button>
         </form>
       </header>
       <main>
-        <ul>
-          {
-            movies.map(movie => (
-              <li key={movie.id}>
-                <div className="card">
-                  <h2>{movie.title}</h2>
-                </div>
-                <div className="card-body">
-                  <p>{movie.original_title}</p>
-                  <p>{getFlag(movie.original_language)}</p>
-                  <p>{movie.vote_average}</p>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
+        <div>
+          <h2>MOVIES</h2>
+
+          <ul>
+            {
+              movies.map(movie => (
+                <li key={movie.id}>
+                  <div className="card">
+                    <h2>{movie.title}</h2>
+                  </div>
+                  <div className="card-body">
+                    <p>{movie.original_title}</p>
+                    <p>{getFlag(movie.original_language)}</p>
+                    <p>{movie.vote_average}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div>
+          <h2>TV SERIES</h2>
+
+          <ul>
+            {
+              series.map(movie => (
+                <li key={movie.id}>
+                  <div className="card">
+                    <h2>{movie.name}</h2>
+                  </div>
+                  <div className="card-body">
+                    <p>{movie.original_name}</p>
+                    <p>{getFlag(movie.original_language)}</p>
+                    <p>{movie.vote_average}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
 
       </main>
     </>
