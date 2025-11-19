@@ -103,7 +103,9 @@ function App() {
                 <li key={serie.id}>
                   <div className="card">
                     <h2>{serie.name}</h2>
-                    <img src={`https://image.tmdb.org/t/p/w342/${serie.poster_path}`} alt="" />
+                    {product.poster_path && (
+                      <img src={`https://image.tmdb.org/t/p/w342/${serie.poster_path}`} alt="" />
+                    )}
                   </div>
                   <div className="card-body">
                     <p>{serie.original_name}</p>
