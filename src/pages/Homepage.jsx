@@ -2,11 +2,13 @@ import { useContext } from "react"
 
 import MovieContext from "../context/MovieContext";
 import SeriesContext from "../context/SeriesContext";
+import FunctionContext from "../context/FunctionContext";
 
 export default function Homepage() {
 
     const { movies } = useContext(MovieContext);
     const { series } = useContext(SeriesContext);
+    const { getFlag, renderStars } = useContext(FunctionContext);
 
     return (
         <main>
