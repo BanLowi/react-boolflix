@@ -7,6 +7,7 @@ import Homepage from "./pages/Homepage";
 
 import MovieContext from "./context/MovieContext";
 import SeriesContext from "./context/SeriesContext";
+import SearchContext from "./context/SearchContext";
 
 const apikey = import.meta.env.VITE_MOVIEDB_API_KEY;
 
@@ -80,18 +81,20 @@ function App() {
   }
 
   return (
-    <SeriesContext.Provider value={{ series }}>
-      <MovieContext.Provider value={{ movies }}>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<DefaultLayout />}>
-              <Route index element={<Homepage />} />
+    <SearchContext.Provider value={{ searchInput, setSearchInput, fetchData }}>
+      <SeriesContext.Provider value={{ series }}>
+        <MovieContext.Provider value={{ movies }}>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<DefaultLayout />}>
+                <Route index element={<Homepage />} />
 
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </MovieContext.Provider>
-    </SeriesContext.Provider>
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </MovieContext.Provider>
+      </SeriesContext.Provider>
+    </SearchContext.Provider>
   )
 }
 

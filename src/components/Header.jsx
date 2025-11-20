@@ -1,4 +1,10 @@
+import { useContext } from "react";
+
+import SearchContext from "../context/SearchContext";
+
 export default function Header() {
+
+    const { searchInput, setSearchInput, fetchData } = useContext(SearchContext);
 
     return (
         <header>
