@@ -1,5 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import DefaultLayout from "./layout/DefaultLayout";
+import Homepage from "./pages/Homepage";
+
+import MovieContext from "./context/MovieContext";
+import SeriesContext from "./context/SeriesContext";
 
 const apikey = import.meta.env.VITE_MOVIEDB_API_KEY;
 
@@ -73,70 +80,18 @@ function App() {
   }
 
   return (
-    <>
-      <header>
-        <form onSubmit={fetchData}>
-          <input type="text" name="searchbar" id="searchBar" value={searchInput} onChange={e => setSearchInput(e.target.value)} />
-          <button type="submit">Invia</button>
-        </form>
-      </header>
-      <main>
-        <div>
-          <h2>MOVIES</h2>
+    <SeriesContext.Provider value={{ series }}>
+      <MovieContext.Provider value={{ movies }}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<DefaultLayout />}>
+              <Route index element={<Homepage />} />
 
-          <ul>
-            {
-              movies.map(movie => (
-                <li key={movie.id}>
-                  <div className="card">
-                    <h2>{movie.title}</h2>
-                    {
-                      movie.poster_path &&
-                      <img src={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`} alt="" />
-                    }
-                  </div>
-                  <div className="card-body">
-                    <p>{movie.original_title}</p>
-                    <p>{getFlag(movie.original_language)}</p>
-                    <p>{renderStars(movie.vote_average)}</p>
-                  </div>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-
-        <div>
-          <h2>TV SERIES</h2>
-
-          <ul>
-            {
-              series.map(serie => {
-
-
-
-
-                return <li key={serie.id}>
-                  <div className="card">
-                    <h2>{serie.name}</h2>
-                    {
-                      serie.poster_path &&
-                      <img src={`https://image.tmdb.org/t/p/w342/${serie.poster_path}`} alt="" />
-                    }
-                  </div>
-                  <div className="card-body">
-                    <p>{serie.original_name}</p>
-                    <p>{getFlag(serie.original_language)}</p>
-                    <p>{(serie.vote_average / 2).toFixed()}</p>
-                  </div>
-                </li>
-              })
-            }
-          </ul>
-        </div>
-
-      </main>
-    </>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </MovieContext.Provider>
+    </SeriesContext.Provider>
   )
 }
 

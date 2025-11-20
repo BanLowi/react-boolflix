@@ -1,1 +1,14 @@
+@import url("bootstrap");
 @import url("bootstrap-icons");
+
+/* Searchbar */
+
+#searchBar {
+
+    color: white;
+
+    &::placeholder {
+
+        color: white;
+    }
+}
