@@ -72,13 +72,18 @@ function App() {
 
   function renderStars(vote) {
 
-    let star = "";
+    let stars = [];
+    const scaledVote = Math.ceil(vote / 2);
     // for every vote add a star
-    for (let i = 0; i < (vote / 2).toFixed(); i++) {
-      star += "⭐"
+    for (let i = 0; i < scaledVote; i++) {
+      stars.push(<i className="bi bi-star-fill text-warning"></i>);
     }
 
-    return star
+    for (let i = scaledVote; i < 5; i++) {
+      stars.push(<i className="bi bi-star text-warning"></i>);
+    }
+
+    return stars
   }
 
   return (
